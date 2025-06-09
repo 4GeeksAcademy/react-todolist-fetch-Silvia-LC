@@ -1,0 +1,31 @@
+.list-group-item {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  }
+
+.list-group-item.selected {
+  background-color:rgb(202, 169, 108) !important;
+  color: white;
+}
+
+.btn-close {
+  position: absolute; 
+  right:0px;
+  top:50%;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.list-group-item:hover .btn-close {
+  opacity: 1;
+}
+
+.empty-message {
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: rgb(32, 30, 30);
+  margin-top: 20px;
+}

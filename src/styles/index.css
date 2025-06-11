@@ -8,16 +8,14 @@ h1{
     padding: 50px;
     font-family:'Lucida Sans Unicode';
     font-style: oblique;
-}
+ }
 
-button{
-    width: 170px;
-    height: 40px;
-    font-size: 25px;
-    position: absolute;
-    top: 65%;
-    left: 45%; 
-}
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+} 
+
 button:hover {
   transform: scale(1.2);
 }

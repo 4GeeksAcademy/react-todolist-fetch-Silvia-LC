@@ -13,7 +13,9 @@ const Home = () => {
 				<div>
 					<TodoList/>
 				</div>
-			<button type="button" class="btn btn-warning">Add Task</button>			
+		<div className="button-container">
+			<button className="btn btn-warning">Add Task</button>
+		</div>
 		</div>
 		
 	);

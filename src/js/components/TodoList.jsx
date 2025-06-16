@@ -11,10 +11,17 @@ export const TodoList = () => {
 
   const [selectedId, setSelectedId] = useState(null);
   const [isEmpty, setIsEmpty] = useState(false);
+  const [showCard, setShowCard] = useState(false);
+  const [newTask, setNewTask] = useState({ text: "", content: "" });
 
   useEffect(() => {
     setIsEmpty(items.length === 0);
   }, [items]);
+
+  useEffect(() => {
+    getTodoList()
+
+  },[])
 
   const handleSelect = (id) => {
     setSelectedId(id);
@@ -23,6 +30,47 @@ export const TodoList = () => {
   const handleRemove = (id) => {
     setItems(items.filter(item => item.id !== id));
   };
+
+  const handleAddTask = () => {
+  setShowCard(true);
+};
+
+  const handleSaveTask = () => {
+  if (newTask.text.trim() !== "") {
+    setItems([...items, { id: items.length + 1, ...newTask }]);
+    setShowCard(false);
+    setNewTask({ text: "", content: "" });
+  }
+};
+
+
+
+  const getTodoList = async () => {
+    const response = await fetch ("https://playground.4geeks.com/todo/users/test101");
+    const data = await response.json();
+    console.log(data);
+  }
+
+  const postTodoList = async () => {
+    let newTask = {
+      label: "New Task",
+      is_done: false
+    }
+
+    await fetch ("https://playground.4geeks.com/todo/todos/test101",{
+      method: "POST",
+      body: JSON.stringify(newTask),
+      headers: {"Content-Type": "application/json"}
+    });
+  }
+
+  const deleteTodoList = async () => {
+    await fetch ("https://playground.4geeks.com/todo/users/test101",{
+      method:"DELETE",
+      body: JSON.stringify(newTask),
+      headers: {"Content-Type": "application/json"}
+    });
+  }
 
   return (
     <div className="container w-50 p-2">
@@ -54,7 +102,31 @@ export const TodoList = () => {
           ))
         )}
     </div>
+    <div className="button-container">
+			 <button className="btn btn-warning" onClick={handleAddTask}>
+      Add Task
+    </button>       
+  </div> 
+  {showCard && (
+    <div className="card">
+      <h5 className="card-header">New Task</h5>
+      <div className="card-body">
+        <input
+          type="text"
+          placeholder="Title"
+          value={newTask.text}
+          onChange={(e) => setNewTask({ ...newTask, text: e.target.value })}
+        />
+        <textarea
+          placeholder="Description of your task"
+          value={newTask.content}
+          onChange={(e) => setNewTask({ ...newTask, content: e.target.value })}
+        />
+        <button className="btn btn-success" onClick={handleSaveTask}>
+          Save
+        </button>
+      </div>
     </div>
-
-  );
-}
+  )};
+  {}
+</div>)}
